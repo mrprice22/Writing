@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Interactive Wisdom Map</title>
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>
+mermaid.initialize({ startOnLoad: true });
+</script>
+
+<style>
+body {
+  font-family: Georgia, serif;
+  background: #f4f7f9;
+  color: #2c3e50;
+  margin: 40px;
+}
+.container {
+  max-width: 1000px;
+  margin: auto;
+}
+h1, h2 {
+  color: #1a5276;
+}
+.section {
+  margin-top: 40px;
+}
+.mermaid {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+}
+.panel {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  margin-top: 20px;
+}
+button {
+  padding: 10px;
+  margin: 5px;
+  cursor: pointer;
+}
+</style>
+</head>
+
+<body>
+<div style="position:sticky;top:0;z-index:100;background:rgba(250,247,242,0.95);backdrop-filter:blur(6px);border-bottom:1px solid #d4c9a8;padding:0.55rem 1.5rem;font-family:Raleway,Arial,sans-serif;font-size:0.78rem;letter-spacing:0.07em;"><a href="../index.html" style="color:#8b6914;text-decoration:none;">← The Writing Collection</a></div>
+<div class="container">
+
+<h1>Interactive Wisdom Map</h1>
+
+<p>
+What you are exploring here is not a system for improving yourself, but a way of noticing that the one who seeks improvement is itself part of the pattern. This map is not a set of instructions—it is a mirror. And as with all mirrors, what you see depends entirely on how you look.
+</p>
+
+<p>
+So rather than asking, “How do I fix my life?”, you might begin to ask, “What game am I playing right now?” For in seeing the game clearly, you may discover—quite unexpectedly—that you are free to play it differently.
+</p>
+
+<div class="section">
+<h2>Wisdom Map</h2>
+<div class="mermaid">
+graph TD
+A[Self-Discovery] --> B(Contemplation)
+A --> C(Ego Dissolution)
+A --> D(Presence)
+B --> E(Spiritual Practices)
+B --> F(Connectedness)
+C --> G(Non-Attachment)
+D --> H(Mindfulness)
+D --> I(Acceptance)
+G --> M(Flow)
+H --> N(Self-Awareness)
+I --> O(Self-Love)
+M --> S(Surrender)
+N --> T(Conscious Living)
+S --> Y(Faith in Life)
+</div>
+</div>
+
+<div class="section">
+<h2>Diagnose Your Current State</h2>
+
+<p>Select what feels closest to your current experience:</p>
+
+<button onclick="diagnose('overwhelmed')">Overwhelmed</button>
+<button onclick="diagnose('stuck')">Stuck</button>
+<button onclick="diagnose('anxious')">Anxious</button>
+<button onclick="diagnose('seeking')">Seeking Meaning</button>
+
+<div class="panel" id="diagnosisOutput">
+Your reflection will appear here.
+</div>
+</div>
+
+<div class="section">
+<h2>Guided Reflection</h2>
+
+<button onclick="promptMe()">Give me a journaling prompt</button>
+
+<div class="panel" id="promptOutput">
+Click the button to receive a prompt.
+</div>
+</div>
+
+<div class="section">
+<h2>Practical Exercises</h2>
+
+<ul>
+<li><b>Mindfulness Reset:</b> Sit quietly for 2 minutes and observe without labeling.</li>
+<li><b>Letting Go:</b> Identify one thing you’re trying to control. Stop interfering with it.</li>
+<li><b>Perspective Flip:</b> Ask: “What if this problem is exactly what I need?”</li>
+<li><b>Flow Practice:</b> Engage in something creative without a goal.</li>
+<li><b>Identity Inquiry:</b> Ask: “Who is the one experiencing this?”</li>
+</ul>
+
+</div>
+
+<div class="section">
+<h2>Next Steps</h2>
+
+<ul>
+<li>Return to this map when confused—not for answers, but for perspective.</li>
+<li>Build your own nodes based on lived experience.</li>
+<li>Track patterns: where do you tend to get stuck?</li>
+<li>Practice moving between nodes fluidly.</li>
+<li>Eventually, discard the map entirely.</li>
+</ul>
+
+<p>
+For the final insight is this: the map was never separate from you. It was something you were doing all along.
+</p>
+
+</div>
+
+<div class="section">
+<h2>Credits</h2>
+<p>
+Prompted by James Price<br>
+Written by ChatGPT<br>
+Originally begun November 2023, updated April 2024<br>
+Inspired by the works and philosophy of Alan Watts
+</p>
+</div>
+
+</div>
+
+<script>
+function diagnose(state) {
+  let output = "";
+
+  if (state === "overwhelmed") {
+    output = "You may be resisting the present moment. Explore Acceptance or Mindfulness. What happens if nothing needs to change right now?";
+  }
+  if (state === "stuck") {
+    output = "You may be over-identifying with a role or story. Consider Ego Dissolution. Who are you without this narrative?";
+  }
+  if (state === "anxious") {
+    output = "You are likely projecting into the future. Return to Presence. What is actually happening right now?";
+  }
+  if (state === "seeking") {
+    output = "The seeker and the sought may be the same. Investigate Self-Discovery. What are you hoping to find—and who hopes to find it?";
+  }
+
+  document.getElementById("diagnosisOutput").innerText = output;
+}
+
+function promptMe() {
+  const prompts = [
+    "What am I trying to control right now?",
+    "What would happen if I let this situation unfold?",
+    "Who would I be without this problem?",
+    "Am I reacting to reality, or to my idea of it?",
+    "What am I avoiding in this moment?",
+    "Can I allow this feeling to exist without changing it?"
+  ];
+
+  const random = prompts[Math.floor(Math.random() * prompts.length)];
+  document.getElementById("promptOutput").innerText = random;
+}
+</script>
+
+</body>
+</html>
