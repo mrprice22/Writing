@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Key Lessons in Humanity</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Raleway:wght@300;400;500&display=swap');
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --ink:       #1c1a17;
+      --muted:     #6b6456;
+      --accent:    #8b6914;
+      --rule:      #d4c9a8;
+      --bg:        #faf7f2;
+      --card-bg:   #f3ede0;
+      --glow:      rgba(139, 105, 20, 0.06);
+      --link:      #5a4a0a;
+      --link-hover:#8b6914;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 18px;
+      line-height: 1.75;
+      min-height: 100vh;
+    }
+
+    /* ── Links ── */
+    a {
+      color: var(--link);
+      text-decoration: underline;
+      text-decoration-color: var(--rule);
+      text-underline-offset: 3px;
+      transition: color 0.15s, text-decoration-color 0.15s;
+    }
+    a:hover {
+      color: var(--link-hover);
+      text-decoration-color: var(--link-hover);
+    }
+
+    /* ── Header ── */
+    header {
+      text-align: center;
+      padding: 4rem 2rem 2.5rem;
+      border-bottom: 1px solid var(--rule);
+      background: linear-gradient(180deg, #fff 0%, var(--bg) 100%);
+    }
+
+    header h1 {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-weight: 300;
+      font-size: clamp(2rem, 5vw, 3.4rem);
+      letter-spacing: 0.06em;
+      color: var(--ink);
+      margin-bottom: 0.4rem;
+    }
+
+    header .byline {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 400;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    /* ── Intro poem ── */
+    .intro {
+      max-width: 720px;
+      margin: 3rem auto 1rem;
+      padding: 0 2rem;
+      font-size: 1.15rem;
+      font-style: italic;
+      color: var(--muted);
+      text-align: center;
+      line-height: 1.9;
+    }
+
+    /* ── Main grid ── */
+    main {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 2rem 2rem 5rem;
+    }
+
+    .section-label {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin: 3rem 0 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--rule);
+    }
+
+    /* ── Lesson card ── */
+    .lesson {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 0;
+      border-top: 1px solid var(--rule);
+      padding: 2rem 0;
+      transition: background 0.2s;
+    }
+
+    .lesson:last-child {
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .lesson:hover {
+      background: var(--glow);
+      border-radius: 4px;
+    }
+
+    .lesson-key {
+      padding: 0 1.5rem 0 0;
+      font-weight: 600;
+      font-size: 1.05rem;
+      color: var(--accent);
+      line-height: 1.4;
+      align-self: start;
+      padding-top: 0.1rem;
+    }
+
+    .lesson-key a {
+      color: var(--accent);
+      text-decoration-color: rgba(139, 105, 20, 0.3);
+    }
+    .lesson-key a:hover {
+      color: var(--link-hover);
+      text-decoration-color: var(--link-hover);
+    }
+
+    .lesson-body {
+      font-size: 1rem;
+      color: var(--ink);
+      line-height: 1.8;
+    }
+
+    .lesson-body p + p {
+      margin-top: 0.8rem;
+    }
+
+    .lesson-body .refs {
+      display: block;
+      margin-top: 0.6rem;
+      font-size: 0.9rem;
+      font-style: italic;
+      color: var(--muted);
+    }
+
+    /* ── Quotes block ── */
+    .quotes {
+      margin-top: 0.8rem;
+      padding-left: 1.2rem;
+      border-left: 2px solid var(--rule);
+    }
+
+    .quotes blockquote {
+      font-style: italic;
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin-bottom: 0.5rem;
+      line-height: 1.6;
+    }
+
+    .quotes blockquote cite {
+      font-style: normal;
+      font-size: 0.8rem;
+      font-family: 'Raleway', sans-serif;
+      letter-spacing: 0.05em;
+    }
+
+    /* ── Connector ── */
+    .connector {
+      text-align: center;
+      padding: 1.6rem 0;
+      font-size: 0.85rem;
+      font-family: 'Raleway', sans-serif;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--rule);
+    }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center;
+      padding: 2rem;
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      border-top: 1px solid var(--rule);
+    }
+
+    footer .note {
+      display: block;
+      margin-top: 0.4rem;
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      opacity: 0.6;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 640px) {
+      .lesson {
+        grid-template-columns: 1fr;
+        gap: 0.5rem;
+      }
+      .lesson-key {
+        font-size: 0.95rem;
+        padding-right: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div style="position:sticky;top:0;z-index:100;background:rgba(250,247,242,0.95);backdrop-filter:blur(6px);border-bottom:1px solid #d4c9a8;padding:0.55rem 1.5rem;font-family:Raleway,Arial,sans-serif;font-size:0.78rem;letter-spacing:0.07em;"><a href="../index.html" style="color:#8b6914;text-decoration:none;">← The Writing Collection</a></div>
+
+<header>
+  <h1>Key Lessons in Humanity</h1>
+  <p class="byline">By James Price &nbsp;&middot;&nbsp; August 19, 2024</p>
+</header>
+
+<p class="intro">
+  Be an empathetic scout who accepts responsibility amid uncertainty and chaos,
+  sees beauty in all things, and is determined to go with the flow.
+  Be more than human and more than machine.
+  Manifest reality from dream, here and now.
+</p>
+
+<main>
+
+  <div class="section-label">Notes &amp; Sources</div>
+
+  <!-- 1: Be an empathetic scout -->
+  <div class="lesson">
+    <div class="lesson-key">Be an <a href="https://www.youtube.com/watch?v=NRRRKzAJbHg&t=68s&pp=ygUZc2Vhcm4gY2Fyb2wgc2NvdXQgbWluZHNldA%3D%3D" target="_blank" rel="noopener noreferrer">empathetic scout</a></div>
+    <div class="lesson-body">
+      <p>View everything as a skill; <a href="https://www.youtube.com/watch?v=Ym4Rpd72tq8&t=186s&pp=ygUUcmFtIGRhc3MgYWZ0ZXIgc2tvb2w%3D" target="_blank" rel="noopener noreferrer">a person's skills determine the actions they can take.</a> Seek to understand others' points of view, and their skills/strengths; <a href="https://www.youtube.com/watch?v=571aZRAn9hI" target="_blank" rel="noopener noreferrer">explore the world as a truth-seeking cartographer.</a></p>
+      <p><a href="https://www.youtube.com/watch?v=nWJXdr0mQ0s&pp=ygUUcmFtIGRhc3MgYWZ0ZXIgc2tvb2w%3D" target="_blank" rel="noopener noreferrer">Explore within.</a> <a href="https://allpoetry.com/-Prospective-Immigrants-Please-Note-" target="_blank" rel="noopener noreferrer">Share data/findings.</a></p>
+    </div>
+  </div>
+
+  <!-- 2: who accepts responsibility -->
+  <div class="lesson">
+    <div class="lesson-key">who accepts responsibility</div>
+    <div class="lesson-body">
+      <p><a href="https://www.youtube.com/watch?v=eOUWgtbIhgE" target="_blank" rel="noopener noreferrer">Recognize corruption</a> and <a href="https://www.youtube.com/watch?v=oAt-dt3TgQs" target="_blank" rel="noopener noreferrer">its impact,</a> be an ally, <a href="https://www.youtube.com/watch?v=u6gqNTtuMU8" target="_blank" rel="noopener noreferrer">fight</a> <a href="https://www.youtube.com/watch?v=9g6w2f3ttMM" target="_blank" rel="noopener noreferrer">the good fight.</a> <a href="https://www.youtube.com/watch?v=rtPe5lsoHXY&pp=ygUNbm9jZWJvIGVmZmVjdA%3D%3D" target="_blank" rel="noopener noreferrer">Have optimism,</a> truth is shining.</p>
+      <p><a href="https://youtu.be/1Kuh-WKlYdM" target="_blank" rel="noopener noreferrer">Rafiki (Lion King) morality:</a> we either run from the past or <a href="https://www.youtube.com/watch?v=cegl1BZ-0tI" target="_blank" rel="noopener noreferrer">learn from it.</a></p>
+    </div>
+  </div>
+
+  <!-- 3: amid uncertainty and chaos -->
+  <div class="lesson">
+    <div class="lesson-key">amid uncertainty and chaos,</div>
+    <div class="lesson-body">
+      <p><a href="https://www.youtube.com/watch?v=y50i1bI2uN4" target="_blank" rel="noopener noreferrer">You don't know where you are or what's going to happen. Perfect knowledge is impossible, be humble.</a></p>
+      <p class="refs">(see also: <a href="https://www.youtube.com/watch?v=izqaWyZsEtY&pp=ygUVdW5jZXJ0YWludHkgcHJpbmNpcGxl" target="_blank" rel="noopener noreferrer">uncertainty principle,</a> <a href="https://www.youtube.com/watch?v=p-MNSLsjjdo&pp=ygUjdGhlIGV4cGVyaWVubWVudCB0aGF0IGJyb2tlIHJlYWxpdHk%3D" target="_blank" rel="noopener noreferrer">the experiment that broke reality,</a> <a href="https://www.youtube.com/watch?v=et7XvBenEo8&pp=ygUYc3BhY2V0aW1lIDMgYm9keSBwcm9ibGVt" target="_blank" rel="noopener noreferrer">3 body problem,</a> <a href="https://www.youtube.com/watch?v=EagNUvNfsUI&pp=ygUYc3BhY2V0aW1lIGJsb2NrIHVuaXZlcnNl" target="_blank" rel="noopener noreferrer">block universe,</a> <a href="https://www.youtube.com/watch?v=xeVyfiP0cLk" target="_blank" rel="noopener noreferrer">80 year world revolution cycle</a>)</p>
+    </div>
+  </div>
+
+  <!-- 4: sees beauty in all things -->
+  <div class="lesson">
+    <div class="lesson-key"><a href="https://www.youtube.com/watch?v=sLT-rvHhsU8" target="_blank" rel="noopener noreferrer">sees beauty in all things,</a></div>
+    <div class="lesson-body">
+      <p><a href="https://www.youtube.com/watch?v=fbuN0uvHmW4" target="_blank" rel="noopener noreferrer">Love yourself,</a> loving one thing so much you love the entire universe, power of gratitude.</p>
+      <p><a href="https://www.youtube.com/watch?v=7cj6oiFDEXc&pp=ygUWc3BhY2V0aW1lIHVucnVoIGVmZmVjdA%3D%3D" target="_blank" rel="noopener noreferrer">The Unruh Effect;</a> <a href="https://www.youtube.com/watch?v=KR23aMjIHIY&pp=ygUXZW50cm9weSBvZiBlcmFzaW5nIGRhdGE%3D" target="_blank" rel="noopener noreferrer">entropy of erasing information.</a></p>
+      <p><a href="https://www.youtube.com/watch?v=N-Mav6EKxOc" target="_blank" rel="noopener noreferrer">Zen poems.</a> Balances your opposites, embrace <a href="https://www.youtube.com/watch?v=2wT1-bRj9wI&list=WL&index=34" target="_blank" rel="noopener noreferrer">disorientation.</a></p>
+      <p><a href="https://www.youtube.com/watch?v=sLT-rvHhsU8&t=2s&pp=ygUhYWxsYW4gbmF0dXJlIGRvZXNudCBtYWtlIG1pc3Rha2Vz" target="_blank" rel="noopener noreferrer">Everything is perfect,</a> this is heaven.</p>
+    </div>
+  </div>
+
+  <!-- 5: and is determined to go with the flow -->
+  <div class="lesson">
+    <div class="lesson-key">and is determined to go with the flow.</div>
+    <div class="lesson-body">
+      <p><a href="https://www.youtube.com/watch?v=1YFrISfN7jo&t=516s&pp=ygUUc3BhY2UgdGltZSBjYXVzYWxpdHk%3D" target="_blank" rel="noopener noreferrer">Everything's ultimately out of your control</a> because everything is connected by a vast web of causality limited only by the <a href="https://www.youtube.com/watch?v=eVoh27gJgME&pp=ygUiY29zbW9sb2dpY2FsIHNwZWVkIGxpbWl0IHNwYWNldGltZQ%3D%3D" target="_blank" rel="noopener noreferrer">cosmic horizon.</a></p>
+      <p class="refs">(See also: <a href="https://www.youtube.com/watch?v=PHiyQID7SBs&pp=ygUYc3BhY2V0aW1lIHN0YW5kYXJkIG1vZGVs" target="_blank" rel="noopener noreferrer">the standard model,</a> <a href="https://wolframphysics.org/" target="_blank" rel="noopener noreferrer">Wolfram physics project,</a> and <a href="https://www.youtube.com/watch?v=F0b8b_ykPQk&pp=ygUXcGJzc3BhY2V0aW1lIHlvdXIgYnJhaW4%3D" target="_blank" rel="noopener noreferrer">your brain as an asteroid analogy.</a>)</p>
+      <p><a href="https://www.youtube.com/watch?v=-lsYJrLrEAM" target="_blank" rel="noopener noreferrer">Inaction is action;</a> <a href="https://www.penguinrandomhouse.com/books/56871/lets-do-nothing-by-tony-fucile-illustrated-by-tony-fucile/" target="_blank" rel="noopener noreferrer">you can't do nothing.</a> The more you <a href="https://www.youtube.com/watch?v=AnmuI5QFrkk&pp=ygUrd2F0dHM6IGxldCBnbyBvZiBwb3dlciBhbmQgeW91IHdpbGwgaGF2ZSBpdA%3D%3D" target="_blank" rel="noopener noreferrer">let go of power,</a> <a href="https://www.youtube.com/watch?v=HTfYv3IEOqM" target="_blank" rel="noopener noreferrer">the more of it you have:</a> <a href="https://www.youtube.com/watch?v=iC6DDvzM6Nc" target="_blank" rel="noopener noreferrer">sacrifice the ego, gain immortality.</a> Swim with the current, <a href="https://www.youtube.com/watch?v=eeD3wS4fGEY&pp=ygUaYWxhbiB3YXR0cyBsZXQgZ28gb2YgcG93ZXI%3D" target="_blank" rel="noopener noreferrer">don't force anything.</a> Align yourself with yourself, <a href="https://youtu.be/SX07z07xWGQ?si=P_KPFns4a8CSPe7f" target="_blank" rel="noopener noreferrer">realize what you want,</a> <a href="https://www.youtube.com/watch?v=4-079YIasck" target="_blank" rel="noopener noreferrer">then own up to it.</a> <a href="https://www.youtube.com/watch?v=1WXroiXWfcI&t=98s" target="_blank" rel="noopener noreferrer">Hold your color.</a></p>
+    </div>
+  </div>
+
+  <div class="connector">&#8943;</div>
+
+  <!-- 6: Be more than human -->
+  <div class="lesson">
+    <div class="lesson-key">Be more than human</div>
+    <div class="lesson-body">
+      <p><a href="https://www.youtube.com/watch?v=nWJXdr0mQ0s&pp=ygUmbGF5ZXJzIG9mIHJlYWxpdHkgcmFtIGRhc3MgYWZ0ZXIgc2tvb2w%3D" target="_blank" rel="noopener noreferrer">We are more than our thoughts, our actions, or our possessions.</a></p>
+      <div class="quotes">
+        <blockquote><a href="https://www.youtube.com/watch?v=4yaBJVfyy00&t=63s" target="_blank" rel="noopener noreferrer">"If I am my foot, then I am the Sun"</a> <cite>&mdash; Alan Watts</cite></blockquote>
+        <blockquote>"Have trouble sleeping? Do more good deeds during the day." <cite>&mdash; Buddhist monk</cite></blockquote>
+        <blockquote>"None of us are well, until all of us are well." <cite>&mdash; Posted throughout Los Angeles</cite></blockquote>
+        <blockquote><a href="https://youtu.be/B4PmFexkaXc?si=3ifrJ9Qf4c2YuTDP" target="_blank" rel="noopener noreferrer">"What you see outside you, is also you"</a> <cite>&mdash; Alan Watts</cite></blockquote>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7: and more than machine -->
+  <div class="lesson">
+    <div class="lesson-key">and more than machine.</div>
+    <div class="lesson-body">
+      <p>We can <a href="https://www.youtube.com/watch?v=w11mI67R95I&pp=ygUncGVucm9zZSBHw7ZkZWwncyBpbmNvbXBsZXRlbmVzcyB0aGVvcmVt" target="_blank" rel="noopener noreferrer">solve non-computable problems</a> and <a href="https://www.youtube.com/watch?v=xa2Kpkksf3k" target="_blank" rel="noopener noreferrer">prove truths that are non-provable</a> (if constrained by <a href="https://www.youtube.com/watch?v=qPKj0YnKANw&list=PLsPUh22kYmNCHVpiXDJyAcRJ8gluQtOJR" target="_blank" rel="noopener noreferrer">the rules of the system, so that our new truths create new systems</a>). We are in a sense, on the outside, looking in.</p>
+    </div>
+  </div>
+
+  <div class="connector">&#8943;</div>
+
+  <!-- 8: Manifest reality from dream -->
+  <div class="lesson">
+    <div class="lesson-key">Manifest reality from dream,</div>
+    <div class="lesson-body">
+      <p><a href="https://www.youtube.com/watch?v=4Abq2h5LttU&pp=ygUfdW5pdmVyc2UgY29tcG9zZWQgb2YgdmlicmF0aW9ucw%3D%3D" target="_blank" rel="noopener noreferrer">The universe is composed of vibrations,</a> and <a href="https://www.youtube.com/watch?v=tsdLemLCglA" target="_blank" rel="noopener noreferrer">we make vibrations.</a></p>
+      <p><a href="https://www.youtube.com/watch?v=j_k0lka1M9Y&pp=ygUVbG92aW5nIHdob2xlIHVuaXZlcnNl" target="_blank" rel="noopener noreferrer">You are the universe,</a> aware of <a href="https://www.youtube.com/watch?v=I8p1yqnuk8Y" target="_blank" rel="noopener noreferrer">(and participating in)</a> itself.</p>
+    </div>
+  </div>
+
+  <!-- 9: here and now -->
+  <div class="lesson">
+    <div class="lesson-key"><a href="https://www.youtube.com/watch?v=rBpaUICxEhk&pp=ygUlYWxhbiB3YXR0cyBsaWZlIGFuZCBkZWF0aCBhZnRlciBza29vbA%3D%3D" target="_blank" rel="noopener noreferrer">here and now.</a></div>
+    <div class="lesson-body">
+      <p><a href="https://www.youtube.com/watch?v=WC5FdFlUcl0&pp=ygUWYmUgeW91cnNlbGYgYXVkaW9zbGF2ZQ%3D%3D" target="_blank" rel="noopener noreferrer">There's no other thing,</a> <a href="https://www.youtube.com/watch?v=RsdoJ9x8IBs&pp=ygUhYWxsYW4gd2F0dHMgZXZlcnl0aGlnbiBpcyBwZXJmZWN0" target="_blank" rel="noopener noreferrer">or place to be;</a> enjoy the <a href="https://www.youtube.com/watch?v=lrscdXiKnWc&pp=ygUOdGltZSBhZHZlbnR1cmU%3D" target="_blank" rel="noopener noreferrer">time adventure.</a></p>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  Poem by James Price &nbsp;&middot;&nbsp; August 19, 2024
+  <span class="note">Words and their order are original &mdash; links curated for further reading</span>
+</footer>
+
+</body>
+</html>

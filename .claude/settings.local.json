@@ -1,0 +1,23 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3 -c \"import docx; print\\('python-docx available'\\)\")",
+      "Bash(pip install:*)",
+      "Bash(python3)",
+      "Bash(python \"C:/GIT/Writing/James Price/inspect.py\")",
+      "Bash(python3 -m pip show python-docx)",
+      "Bash(where python:*)",
+      "Bash(python -c \"import sys; print\\(sys.executable\\)\")",
+      "Bash(C:/Python312/python.exe -m pip install python-docx)",
+      "Bash(C:/Python312/python.exe:*)",
+      "Bash(python3 -c \"import PyPDF2; print\\('PyPDF2 available'\\)\")",
+      "Bash(python3 -c \"import pypdf; print\\('pypdf available'\\)\")",
+      "Bash(python3 -c \"import pdfplumber; print\\('pdfplumber available'\\)\")",
+      "Bash(python3:*)",
+      "Bash(PYTHONPATH=/tmp/pylibs python3 -c \"import pdfplumber; print\\('ok'\\)\")",
+      "Bash(C:\\\\Python312\\\\python.exe -m pip install pdfplumber)",
+      "Bash(\"/c/Python312/python.exe\" -m pip install pdfplumber)",
+      "Bash(/c/Python312/python.exe:*)"
+    ]
+  }
+}

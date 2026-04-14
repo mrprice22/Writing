@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Determinist Manifesto</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1408;
+    --ink-faded: #3d3420;
+    --ink-ghost: #7a6e5a;
+    --paper: #f5f0e8;
+    --paper-dark: #ece6d6;
+    --paper-deep: #e0d8c4;
+    --gold: #9a7c3a;
+    --gold-light: #c4a05a;
+    --gold-pale: #e8d9a8;
+    --red-accent: #8b1c1c;
+    --margin-outer: clamp(1.5rem, 6vw, 6rem);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: clamp(17px, 1.8vw, 20px);
+    line-height: 1.75;
+    min-height: 100vh;
+  }
+
+  /* ── TEXTURE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0.6;
+  }
+
+  /* ── LAYOUT ── */
+  .page {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 var(--margin-outer);
+  }
+
+  /* ── ORNAMENTAL DIVIDER ── */
+  .ornament {
+    text-align: center;
+    color: var(--gold);
+    font-size: 1.4rem;
+    letter-spacing: 0.4em;
+    margin: 2.5rem 0;
+    opacity: 0.7;
+  }
+
+  .rule {
+    border: none;
+    border-top: 1px solid var(--gold-pale);
+    margin: 3rem 0;
+  }
+
+  .rule-double {
+    border: none;
+    height: 5px;
+    background: linear-gradient(to right, transparent, var(--gold), transparent);
+    margin: 4rem 0;
+    opacity: 0.4;
+  }
+
+  /* ── COVER ── */
+  #cover {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 6rem var(--margin-outer);
+    position: relative;
+    border-bottom: 1px solid var(--gold-pale);
+    background: radial-gradient(ellipse at 50% 60%, #ede4ca 0%, var(--paper) 70%);
+  }
+
+  #cover::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 10%; right: 10%;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--gold-light), transparent);
+  }
+
+  .cover-label {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(0.55rem, 1vw, 0.7rem);
+    letter-spacing: 0.35em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 2.5rem;
+    animation: fadeUp 1.2s ease both;
+  }
+
+  h1.cover-title {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(2.4rem, 6vw, 5rem);
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    line-height: 1.1;
+    color: var(--ink);
+    margin-bottom: 1.5rem;
+    animation: fadeUp 1.2s 0.2s ease both;
+  }
+
+  .cover-subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1rem, 2vw, 1.3rem);
+    font-style: italic;
+    color: var(--ink-ghost);
+    font-weight: 300;
+    max-width: 520px;
+    animation: fadeUp 1.2s 0.4s ease both;
+  }
+
+  .cover-ornament {
+    font-size: 2rem;
+    color: var(--gold);
+    margin: 2.5rem 0;
+    opacity: 0.5;
+    animation: fadeUp 1.2s 0.6s ease both;
+    letter-spacing: 0.5em;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(245, 240, 232, 0.92);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--gold-pale);
+    padding: 0.6rem var(--margin-outer);
+    display: flex;
+    gap: 0.2rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  nav a {
+    font-family: 'Cinzel', serif;
+    font-size: 0.58rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-ghost);
+    text-decoration: none;
+    padding: 0.3rem 0.7rem;
+    transition: color 0.2s;
+  }
+  nav a:hover { color: var(--gold); }
+  nav .sep { color: var(--gold-pale); padding: 0.3rem 0; font-size: 0.8rem; }
+
+  /* ── SECTIONS ── */
+  section {
+    padding: 5rem 0 2rem;
+  }
+
+  section:first-of-type { padding-top: 6rem; }
+
+  /* ── HEADINGS ── */
+  h2.section-label {
+    font-family: 'Cinzel', serif;
+    font-size: 0.62rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1rem;
+  }
+
+  h2.article-title {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(1.3rem, 2.5vw, 1.9rem);
+    font-weight: 400;
+    letter-spacing: 0.05em;
+    color: var(--ink);
+    margin-bottom: 2rem;
+    padding-bottom: 0.8rem;
+    border-bottom: 1px solid var(--gold-pale);
+  }
+
+  h3.appendix-title {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(1.4rem, 2.8vw, 2.1rem);
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    color: var(--ink);
+    margin-bottom: 0.5rem;
+    text-align: center;
+  }
+
+  /* ── BODY TEXT ── */
+  p {
+    margin-bottom: 1.4rem;
+    font-weight: 300;
+    color: var(--ink-faded);
+  }
+
+  p.lead {
+    font-size: 1.15em;
+    font-style: italic;
+    color: var(--ink-ghost);
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+
+  /* ── DROP CAP ── */
+  .drop-cap::first-letter {
+    float: left;
+    font-family: 'Cinzel', serif;
+    font-size: 4.2em;
+    line-height: 0.78;
+    margin: 0.05em 0.1em 0 0;
+    color: var(--gold);
+    font-weight: 600;
+  }
+
+  /* ── PULL QUOTE ── */
+  blockquote {
+    margin: 2.5rem 0;
+    padding: 1.5rem 2rem 1.5rem 2.5rem;
+    border-left: 3px solid var(--gold);
+    background: var(--paper-dark);
+    font-style: italic;
+    font-size: 1.15em;
+    color: var(--ink);
+    position: relative;
+  }
+
+  /* ── CONCORDANCE TABLE ── */
+  .table-wrap {
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+    padding: 0 2rem;
+    overflow-x: auto;
+    margin-top: 2rem;
+    padding: 0 1rem;
+  }
+
+  table.concordance {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.82em;
+    min-width: 700px;
+  }
+
+  table.concordance th {
+    font-family: 'Cinzel', serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--paper);
+    background: var(--ink-faded);
+    padding: 0.75rem 0.9rem;
+    text-align: left;
+    font-weight: 400;
+  }
+
+  table.concordance th:first-child {
+    background: var(--ink);
+  }
+
+  table.concordance td {
+    padding: 0.7rem 0.9rem;
+    border-bottom: 1px solid var(--paper-deep);
+    vertical-align: top;
+    color: var(--ink-faded);
+    font-weight: 300;
+    line-height: 1.5;
+  }
+
+  table.concordance td:first-child {
+    font-weight: 400;
+    color: var(--ink);
+    background: var(--paper-dark);
+    font-style: italic;
+  }
+
+  table.concordance tr:nth-child(even) td:not(:first-child) {
+    background: var(--paper-dark);
+  }
+
+  table.concordance tr:hover td {
+    background: var(--gold-pale);
+    background: rgba(196, 160, 90, 0.12);
+  }
+
+  /* ── PARADOX CARDS ── */
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 1.5rem;
+    margin: 2.5rem 0;
+  }
+
+  .card {
+    background: var(--paper-dark);
+    border: 1px solid var(--paper-deep);
+    border-left: 3px solid var(--gold);
+    padding: 1.5rem 1.6rem;
+    position: relative;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 24px rgba(0,0,0,0.08);
+  }
+
+  .card-koan {
+    font-family: 'IM Fell English', serif;
+    font-size: 1.05em;
+    color: var(--ink);
+    margin-bottom: 0.8rem;
+    line-height: 1.5;
+  }
+
+  .card-expansion {
+    font-size: 0.88em;
+    color: var(--ink-ghost);
+    font-style: italic;
+    font-weight: 300;
+    line-height: 1.6;
+    border-top: 1px solid var(--paper-deep);
+    padding-top: 0.8rem;
+    margin-top: 0.8rem;
+  }
+
+  /* ── BIND CARDS ── */
+  .bind-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 1.5rem;
+    margin: 2.5rem 0;
+  }
+
+  .bind-card {
+    background: var(--paper-dark);
+    border: 1px solid var(--paper-deep);
+    border-left: 3px solid var(--red-accent);
+    padding: 1.5rem 1.6rem;
+    position: relative;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .bind-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 24px rgba(0,0,0,0.08);
+  }
+
+  .bind-statement {
+    font-family: 'IM Fell English', serif;
+    font-size: 1.05em;
+    color: var(--red-accent);
+    margin-bottom: 0.8rem;
+    line-height: 1.5;
+  }
+
+  .bind-unravel {
+    font-size: 0.88em;
+    color: var(--ink-ghost);
+    font-style: italic;
+    font-weight: 300;
+    line-height: 1.6;
+    border-top: 1px solid var(--paper-deep);
+    padding-top: 0.8rem;
+    margin-top: 0.8rem;
+  }
+
+  .bind-resolution {
+    font-size: 0.82em;
+    color: var(--gold);
+    font-weight: 400;
+    margin-top: 0.6rem;
+    font-style: normal;
+  }
+
+  /* ── LEGEND ── */
+  .legend {
+    display: flex;
+    gap: 2rem;
+    margin: 1.5rem 0 2.5rem;
+    flex-wrap: wrap;
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.78em;
+    color: var(--ink-ghost);
+    font-family: 'Cinzel', serif;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .legend-swatch {
+    width: 18px;
+    height: 3px;
+    flex-shrink: 0;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    text-align: center;
+    padding: 4rem var(--margin-outer) 5rem;
+    border-top: 1px solid var(--gold-pale);
+    margin-top: 4rem;
+  }
+
+  footer p {
+    font-size: 0.85em;
+    color: var(--ink-ghost);
+    font-style: italic;
+  }
+
+  footer .final-line {
+    font-family: 'Cinzel', serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-top: 1.5rem;
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── PRINT ── */
+  @media print {
+    nav { display: none; }
+    .card, .bind-card { break-inside: avoid; }
+    section { padding: 2rem 0; }
+  }
+</style>
+</head>
+<body>
+
+<div style="position:sticky;top:0;z-index:100;background:rgba(250,247,242,0.95);backdrop-filter:blur(6px);border-bottom:1px solid #d4c9a8;padding:0.55rem 1.5rem;font-family:Raleway,Arial,sans-serif;font-size:0.78rem;letter-spacing:0.07em;"><a href="../index.html" style="color:#8b6914;text-decoration:none;">← The Writing Collection</a></div>
+
+<!-- COVER -->
+<div id="cover">
+  <div class="cover-label">A Framework for Radical Compassion and Conscious Living</div>
+  <h1 class="cover-title">The Determinist<br>Manifesto</h1>
+  <div class="cover-ornament">✦ ✦ ✦</div>
+  <p class="cover-subtitle">The river flows. The river is the flowing.</p>
+</div>
+
+<!-- NAV -->
+<nav>
+  <a href="#preamble">Preamble</a><span class="sep">·</span>
+  <a href="#art1">Self</a><span class="sep">·</span>
+  <a href="#art2">Causation</a><span class="sep">·</span>
+  <a href="#art3">Truth</a><span class="sep">·</span>
+  <a href="#art4">Compassion</a><span class="sep">·</span>
+  <a href="#art5">Mistakes</a><span class="sep">·</span>
+  <a href="#art6">Connectedness</a><span class="sep">·</span>
+  <a href="#coda">Coda</a><span class="sep">◆</span>
+  <a href="#paradoxes">Paradoxes</a><span class="sep">·</span>
+  <a href="#binds">Binds</a><span class="sep">·</span>
+  <a href="#concordance">Concordance</a>
+</nav>
+
+<!-- MANIFESTO -->
+<div class="page">
+
+  <section id="preamble">
+    <div class="reveal"><h2 class="section-label">Preamble</h2></div>
+    <div class="reveal"><h2 class="article-title">Before the Beginning</h2></div>
+    <p class="drop-cap reveal">We did not choose to be born. We did not choose our first language, our first fears, our first loves. The family that shaped us, the culture that wired us, the neurons that fire in patterns laid down before we had words — none of it was chosen. And yet here we are: aware, deliberating, making something of what was given to us.</p>
+    <p class="reveal">This is not a tragedy. This is the beginning of wisdom.</p>
+    <p class="reveal">The Determinist Manifesto is not a document of resignation. It is a declaration of liberation — from blame, from shame, from the exhausting fiction of the isolated self. It is an invitation to see clearly, live fully, and extend to every other conscious node in the universe the same understanding you would wish for yourself.</p>
+  </section>
+
+  <hr class="rule">
+
+  <section id="art1">
+    <div class="reveal"><h2 class="section-label">Article I</h2></div>
+    <div class="reveal"><h2 class="article-title">The Nature of the Self</h2></div>
+    <p class="drop-cap reveal">The self is not a ghost in a machine. It is not a commander issuing orders to an otherwise mechanical body. The self is a process — a bounded region of the universe that has become locally aware of itself. Consciousness is the list of variables a system can perceive and act upon. Nothing more, nothing less. And it is enough.</p>
+    <p class="reveal">The word "I" does not name a fixed thing. It names a pattern — dynamic, evolving, embedded in a web of causes that stretches back to the origin of everything. To say "I" is a convenience, not a metaphysical claim. The river is not the same river twice, yet we rightly call it by the same name.</p>
+    <blockquote class="reveal">We are simultaneously the whole universe and a particular corner of it. Both are true. Neither cancels the other. The wave is the ocean. The ocean is the wave.</blockquote>
+  </section>
+
+  <hr class="rule">
+
+  <section id="art2">
+    <div class="reveal"><h2 class="section-label">Article II</h2></div>
+    <div class="reveal"><h2 class="article-title">On Causation and Freedom</h2></div>
+    <p class="drop-cap reveal">Every thought you have ever had was caused. Every decision, every moment of apparent will, arose from prior conditions: biology, memory, perception, the temperature of the room, the tone of someone's voice years ago. The causal chain is total and unbroken.</p>
+    <p class="reveal">This does not make you a puppet. It makes you a cause.</p>
+    <p class="reveal">You are not merely acted upon — you are part of the acting. Your deliberation, your reasoning, your values are real forces in the causal chain. The argument that moves you does so precisely because you evaluate it, not merely because it collides with you. That evaluation is what we mean by agency. It is enough.</p>
+    <p class="reveal">Freedom is not escape from causation. Freedom is action that flows from your own deepest nature rather than from external coercion or internal compulsion you have not yet examined. The examined life is not free from the causal chain — it is the causal chain becoming conscious of itself.</p>
+  </section>
+
+  <hr class="rule">
+
+  <section id="art3">
+    <div class="reveal"><h2 class="section-label">Article III</h2></div>
+    <div class="reveal"><h2 class="article-title">On Truth and False Belief</h2></div>
+    <p class="drop-cap reveal">False belief is the source of unnecessary suffering. Not pain — pain is signal, useful and real. Suffering is what happens when the mind builds a model of reality that does not correspond to what is, and then tries to navigate by it.</p>
+    <p class="reveal">Paradox is the symptom of a false belief held alongside its contradiction. To live with unresolved paradox is to waste energy, to attempt the impossible, to exhaust yourself fighting walls that exist only in your model.</p>
+    <blockquote class="reveal">Truth-tracking is not a moral obligation — it is a matter of efficiency, of self-optimization, of reducing the friction between your model and the territory. The universe does not reward false maps. It simply makes them costly.</blockquote>
+    <p class="reveal">Seek accurate models. Update them. Hold them lightly. The map is not the territory, and no map is final.</p>
+  </section>
+
+  <hr class="rule">
+
+  <section id="art4">
+    <div class="reveal"><h2 class="section-label">Article IV</h2></div>
+    <div class="reveal"><h2 class="article-title">On Compassion and Wrongdoing</h2></div>
+    <p class="drop-cap reveal">Every person who has ever harmed another was acting from within the constraints of their causal history. Their cruelty, their ignorance, their failure of empathy — all of it arose from what they were given: genetics, environment, experience, the particular wounds and absences of their particular life.</p>
+    <p class="reveal">This does not mean wrongdoing is not real. It means wrongdoing is a skill deficit, not a character flaw. The distinction is everything.</p>
+    <p class="reveal">Punishment as retribution makes no sense in a determinist framework. Consequences as feedback, as correction, as protection: these remain fully coherent. We reshape the causal chain going forward. We do not pretend to balance a cosmic ledger.</p>
+    <p class="reveal">When you truly internalize that every person you meet is navigating the same causal web you are — with no more ultimate authorship of their starting conditions than you had of yours — resentment becomes harder to sustain. Understanding becomes the natural response. This is not weakness. It is the most accurate possible perception of the situation.</p>
+  </section>
+
+  <hr class="rule">
+
+  <section id="art5">
+    <div class="reveal"><h2 class="section-label">Article V</h2></div>
+    <div class="reveal"><h2 class="article-title">On Mistakes and Learning</h2></div>
+    <p class="drop-cap reveal">There are no mistakes. There are only outcomes and the lessons they contain.</p>
+    <p class="reveal">A mistake implies you should have done otherwise. But given everything you knew, everything you were, every prior cause that produced you at that moment — you could not have done otherwise. What happened was the only thing that could have happened. What remains is what you do with it.</p>
+    <blockquote class="reveal">Shame closes the system. Learning opens it. The determinist chooses learning not because they are virtuous, but because it is more efficient.</blockquote>
+  </section>
+
+  <hr class="rule">
+
+  <section id="art6">
+    <div class="reveal"><h2 class="section-label">Article VI</h2></div>
+    <div class="reveal"><h2 class="article-title">On Connectedness</h2></div>
+    <p class="drop-cap reveal">If the self is a bounded process within a larger whole, then the boundary is a convenience, not a wall. You are connected to everything that caused you — every ancestor, every teacher, every stranger whose small act deflected your trajectory.</p>
+    <p class="reveal">The feeling of isolation — of being a separate self marooned in an indifferent universe — is a false belief. It is the most costly false belief most people carry. Its resolution is not philosophical argument alone. It is lived experience: the moment you feel, not just know, that you are the universe knowing itself.</p>
+    <p class="reveal">There is more than one path to this summit. Philosophy is one. Meditation is another. Music. Love. The right conversation at the right moment. The sherpa does not insist on the route — only on the destination.</p>
+  </section>
+
+  <hr class="rule">
+
+  <section id="coda">
+    <div class="reveal"><h2 class="section-label">Coda</h2></div>
+    <div class="reveal"><h2 class="article-title">What Remains</h2></div>
+    <p class="drop-cap reveal">You did not choose to read this. Something in your causal history brought you here. And yet here you are — a portion of the universe that has become briefly, beautifully aware of itself, holding these ideas, feeling whatever you are feeling.</p>
+    <p class="reveal">What has happened always will have happened. The present moment, in all its fullness, is permanent in the only way anything is permanent — as a fact about what was. This is not consolation. It is the structure of reality.</p>
+    <p class="reveal">Live accordingly. Optimize honestly. Extend compassion freely. Follow the causal chain with your eyes open.</p>
+    <div class="ornament reveal">✦</div>
+  </section>
+
+  <div class="rule-double"></div>
+
+  <!-- APPENDIX A: PARADOXES -->
+  <section id="paradoxes">
+    <div class="reveal"><h2 class="section-label">Appendix A</h2></div>
+    <div class="reveal"><h3 class="appendix-title">Paradoxes That Resolve in the First-Person View</h3></div>
+    <p class="lead reveal">These statements appear contradictory from the outside. From within direct experience, each resolves perfectly — because they describe the structure of consciousness itself, not the logic of objects.</p>
+
+    <div class="legend reveal">
+      <div class="legend-item"><div class="legend-swatch" style="background:var(--gold)"></div>The koan</div>
+      <div class="legend-item"><div class="legend-swatch" style="background:var(--ink-ghost)"></div>The resolution</div>
+    </div>
+
+    <div class="cards-grid">
+
+      <div class="card reveal">
+        <div class="card-koan">Let go and you shall receive.</div>
+        <div class="card-expansion">Grasping contracts the field of perception around the object of desire. Letting go expands it. You don't receive less — you become capable of receiving what was always there.</div>
+      </div>
+
+      <div class="card reveal">
+        <div class="card-koan">Die before you die, and you shall not die when you die.</div>
+        <div class="card-expansion">To release identification with the continuous self now — before the body ends — is to discover that what remains has never been threatened by death. The boundary was always provisional.</div>
+      </div>
+
+      <div class="card reveal">
+        <div class="card-koan">The less you seek, the more you find.</div>
+        <div class="card-expansion">Seeking implies the thing is elsewhere. When seeking stops, you find yourself already where the thing is. The search was the only distance.</div>
+      </div>
+
+      <div class="card reveal">
+        <div class="card-koan">Surrender control to gain true mastery.</div>
+        <div class="card-expansion">The attempt to control arises from the belief that you are separate from the process. Surrender collapses the separation. What acts then acts without resistance — which is the only mastery there is.</div>
+      </div>
+
+      <div class="card reveal">
+        <div class="card-koan">Accept what is, and it will change.</div>
+        <div class="card-expansion">Resistance to what is requires energy that could drive genuine action. Acceptance releases that energy. Change happens not despite acceptance, but through the clarity acceptance restores.</div>
+      </div>
+
+      <div class="card reveal">
+        <div class="card-koan">Know nothing, understand everything.</div>
+        <div class="card-expansion">Fixed knowing is a closed filter. It only permits what fits existing categories. Empty knowing receives everything, including what no category contains. Understanding is not accumulated — it is allowed.</div>
+      </div>
+
+      <div class="card reveal">
+        <div class="card-koan">The self that tries to be free is the only prison.</div>
+        <div class="card-expansion">The effort to free the self assumes the self is real and bound. But the self is the construct doing the binding. The search for freedom by the self perpetuates the loop. Freedom is not found — the searcher is.</div>
+      </div>
+
+      <div class="card reveal">
+        <div class="card-koan">Speak less, say more.</div>
+        <div class="card-expansion">Words crowd out meaning as often as they carry it. Silence gives what is said room to land. The unsaid shapes the said. Economy of speech is not withholding — it is trust that the essential is enough.</div>
+      </div>
+
+      <div class="card reveal">
+        <div class="card-koan">Act without acting and nothing is left undone.</div>
+        <div class="card-expansion">Wu Wei: action aligned with the nature of a situation rather than imposed upon it. It leaves no residue of forcing, no friction, no waste. Everything that needed to happen, happened — and you cannot find where you intervened.</div>
+      </div>
+
+      <div class="card reveal">
+        <div class="card-koan">Embrace weakness and become strong.</div>
+        <div class="card-expansion">The posture of strength requires defending a perimeter. Acknowledged weakness has no perimeter to defend. It moves freely, adapts completely, and cannot be leveraged against. Water overcomes stone by yielding, not resisting.</div>
+      </div>
+
+      <div class="card reveal">
+        <div class="card-koan">The closer you look for the looker, the less you find.</div>
+        <div class="card-expansion">The eye cannot see itself seeing. Consciousness cannot be made into an object without ceasing to be the subject. The search for the looker confirms it is not a thing — which is precisely the discovery.</div>
+      </div>
+
+      <div class="card reveal">
+        <div class="card-koan">Stop trying to be present and you arrive.</div>
+        <div class="card-expansion">Trying to be present places presence in the future: a goal not yet reached. The present is what trying happens in. The moment effort drops, you find you were never elsewhere.</div>
+      </div>
+
+      <div class="card reveal">
+        <div class="card-koan">Love fully by needing nothing from love.</div>
+        <div class="card-expansion">Love that needs a return is exchange, not love. Needless love has no condition to defend, no transaction to complete. It gives entirely because it is not diminished by giving. This is its fullness.</div>
+      </div>
+
+      <div class="card reveal">
+        <div class="card-koan">The ending of the seeker is the beginning of the found.</div>
+        <div class="card-expansion">The seeker is constituted by lack — by the assumption that something is missing. When that assumption dissolves, lack dissolves with it. The found was never absent. The seeker was the only obstacle.</div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="rule-double"></div>
+
+  <!-- APPENDIX B: BINDS -->
+  <section id="binds">
+    <div class="reveal"><h2 class="section-label">Appendix B</h2></div>
+    <div class="reveal"><h3 class="appendix-title">Normal-Seeming Truths That Are Actually Binds</h3></div>
+    <p class="lead reveal">These statements feel like ground. They are inherited as obvious, repeated as wisdom, and experienced as necessity. In the determinist view, each one is a false map — costly not because it is evil, but because it generates suffering while posing as clarity.</p>
+
+    <div class="legend reveal">
+      <div class="legend-item"><div class="legend-swatch" style="background:var(--red-accent)"></div>The bind</div>
+      <div class="legend-item"><div class="legend-swatch" style="background:var(--ink-ghost)"></div>Why it binds</div>
+      <div class="legend-item"><div class="legend-swatch" style="background:var(--gold)"></div>The release</div>
+    </div>
+
+    <div class="bind-grid">
+
+      <div class="bind-card reveal">
+        <div class="bind-statement">You must protect and defend who you are.</div>
+        <div class="bind-unravel">This presupposes a fixed self worth defending — a continuous "you" that can be damaged by criticism, change, or disconfirmation. The defended self becomes rigid, brittle, and expensive to maintain. It mistakes its borders for its identity.</div>
+        <div class="bind-resolution">The self is a process, not a possession. What is flowing cannot be shattered.</div>
+      </div>
+
+      <div class="bind-card reveal">
+        <div class="bind-statement">Time is running out.</div>
+        <div class="bind-unravel">This statement makes time an adversary, and you a debtor racing a deadline. It converts the present moment — the only place anything has ever happened — into a corridor you are rushing through. Urgency becomes chronic, and the now is perpetually evacuated.</div>
+        <div class="bind-resolution">The present moment always will have been. Time is not running out — it is the medium you are made of.</div>
+      </div>
+
+      <div class="bind-card reveal">
+        <div class="bind-statement">You need to be understood by others.</div>
+        <div class="bind-unravel">This places your coherence in other minds — minds that are themselves partial, occupied, and filtered through their own causal history. It makes your inner life dependent on an external translation that will always be approximate. The gap cannot be permanently closed.</div>
+        <div class="bind-resolution">You are the universe understanding itself. That understanding does not require a witness.</div>
+      </div>
+
+      <div class="bind-card reveal">
+        <div class="bind-statement">Your past made you who you are.</div>
+        <div class="bind-unravel">Technically true, but used as a bind it implies the past owns the present — that prior causes are a verdict rather than an input. It makes identity retrospective, frozen at the moment of its last major wound or triumph. The past becomes a weight, not a current.</div>
+        <div class="bind-resolution">The past is a cause, not a sentence. Each moment enters the causal chain fresh.</div>
+      </div>
+
+      <div class="bind-card reveal">
+        <div class="bind-statement">There is somewhere better you should be right now.</div>
+        <div class="bind-unravel">This is the bind of comparative location — the assumption that the present place in life, work, or experience is a deficit state relative to some imagined correct position. It makes everywhere a waiting room and nowhere fully inhabitable.</div>
+        <div class="bind-resolution">The causal chain brought you exactly here. Here is the only place the next cause can be set in motion.</div>
+      </div>
+
+      <div class="bind-card reveal">
+        <div class="bind-statement">You must earn your worth.</div>
+        <div class="bind-unravel">Worth as something external, granted by performance, is perpetually at risk. It requires continuous proof. The moment effort slows, worth recedes. This is not a motivational structure — it is an anxiety engine. The baseline is lack, and achievement can only temporarily fill it.</div>
+        <div class="bind-resolution">A process of the universe does not earn its right to exist. It exists. That is the whole of its worth.</div>
+      </div>
+
+      <div class="bind-card reveal">
+        <div class="bind-statement">Death is what happens to you at the end.</div>
+        <div class="bind-unravel">This frames death as an event in the future that will interrupt the continuous you. It makes the present moment shadowed by a terminal punctuation mark. The fear of non-existence becomes a background hum that colors all experience.</div>
+        <div class="bind-resolution">What has happened always will have happened. The boundary is not an ending — it is where the local process returns to the whole. The wave does not mourn the ocean.</div>
+      </div>
+
+      <div class="bind-card reveal">
+        <div class="bind-statement">Other people are the cause of your suffering.</div>
+        <div class="bind-unravel">This externalizes the mechanism of suffering while pretending to explain it. People are causes in the causal chain, yes — but suffering is generated by the model you hold of events, not by the events themselves. The map is not the territory, and the pain lives in the map.</div>
+        <div class="bind-resolution">When you see that others acted from within their own causal constraints, the resentment mechanism loses its fuel.</div>
+      </div>
+
+      <div class="bind-card reveal">
+        <div class="bind-statement">You are the one thinking your thoughts.</div>
+        <div class="bind-unravel">Thoughts arise. The claim to be their author is itself another thought. The sense of authorship is a narrative the system tells after the fact. Believing it makes you responsible for thoughts you did not choose — including the dark, intrusive, or shameful ones that arise unbidden.</div>
+        <div class="bind-resolution">Thoughts are events in consciousness, not confessions of the self. Observing them is the beginning of freedom from them.</div>
+      </div>
+
+      <div class="bind-card reveal">
+        <div class="bind-statement">When circumstances improve, you will be happy.</div>
+        <div class="bind-unravel">This is the condition that perpetually recedes. The hedonic treadmill ensures that improved circumstances become the new baseline, and happiness remains a future event. It converts life into a pre-condition that is never quite met.</div>
+        <div class="bind-resolution">Happiness is not a destination in the causal chain. It is a quality of present-moment awareness that circumstances can accompany but not create.</div>
+      </div>
+
+      <div class="bind-card reveal">
+        <div class="bind-statement">You must resolve the past to be free.</div>
+        <div class="bind-unravel">This makes freedom contingent on a project that is by definition incomplete — the past cannot be changed, and "resolution" is a moving target that tends to expand as you approach it. It places liberation in a future that requires traversing an unfixable terrain.</div>
+        <div class="bind-resolution">The past is fixed. What remains fluid is your relationship to it — which can shift in a single present moment of clear seeing.</div>
+      </div>
+
+      <div class="bind-card reveal">
+        <div class="bind-statement">The goal of life is to feel good.</div>
+        <div class="bind-unravel">When feeling good becomes the target, every experience of not-feeling-good is a failure. Pain, difficulty, boredom, and grief become malfunctions rather than textures of a complete existence. The optimization for pleasure is simultaneously an intolerance for reality.</div>
+        <div class="bind-resolution">The goal of a self-optimizing process is accurate modeling and effective action. Feeling good is a by-product, not a criterion. Equanimity — not pleasure — is the signature of a well-calibrated system.</div>
+      </div>
+
+      <div class="bind-card reveal">
+        <div class="bind-statement">There is a continuous "you" that must be kept consistent.</div>
+        <div class="bind-unravel">Consistency of self across time requires managing, curating, and defending a narrative — one that must suppress contradictions, explain away changes, and maintain a coherent persona. This is expensive. It makes growth feel like betrayal and contradiction feel like crisis.</div>
+        <div class="bind-resolution">The river is not the same river twice. Consistency is a story told about a process. The process is free to change.</div>
+      </div>
+
+      <div class="bind-card reveal">
+        <div class="bind-statement">More self-knowledge will solve the problem of self.</div>
+        <div class="bind-unravel">This is the most refined bind — because it uses the tools of clarity to perpetuate the very structure being examined. The self-knowledge project keeps the self as its central object indefinitely. More introspection generates more to introspect. The map tries to map the mapper.</div>
+        <div class="bind-resolution">The problem of self is not solved by knowing the self better — it dissolves when the self is seen as a process rather than a problem. The looker cannot be found. That is the finding.</div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="rule-double"></div>
+
+  <!-- APPENDIX C: CONCORDANCE -->
+  <section id="concordance">
+    <div class="reveal"><h2 class="section-label">Appendix C</h2></div>
+    <div class="reveal"><h3 class="appendix-title">The Philosophical Concordance</h3></div>
+    <p class="lead reveal">The same truth wears many names. All paths up the mountain pass through the same terrain.</p>
+
+    <div class="table-wrap reveal">
+      <table class="concordance">
+        <thead>
+          <tr>
+            <th>Determinist Concept</th>
+            <th>Christianity</th>
+            <th>Islam</th>
+            <th>Buddhism</th>
+            <th>Stoicism</th>
+            <th>Taoism</th>
+            <th>Hinduism</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Universe / Causal Totality</td><td>God / The Lord</td><td>Allah</td><td>Dharma / Dependent Origination</td><td>The Logos / Nature</td><td>The Tao</td><td>Brahman</td></tr>
+          <tr><td>The Causal Chain</td><td>God's Plan / Providence</td><td>Qadar (Divine Decree)</td><td>Pratītyasamutpāda</td><td>Fate / Universal Reason</td><td>The Way (Wu Wei)</td><td>Karma &amp; Cosmic Order</td></tr>
+          <tr><td>Letting go of free will</td><td>Faith / Surrender to God's will</td><td>Islam (submission to Allah)</td><td>Non-attachment; releasing self-control</td><td>Amor Fati (love of fate)</td><td>Wu Wei (non-striving)</td><td>Nishkama Karma</td></tr>
+          <tr><td>Consciousness / Bounded awareness</td><td>The Soul / Imago Dei</td><td>Ruh (Spirit)</td><td>Stream of consciousness (Santana)</td><td>The Hegemonikon (ruling faculty)</td><td>Shen (Spirit)</td><td>Atman (individual self)</td></tr>
+          <tr><td>Universe contains all</td><td>God is Sovereign / Omnipresent</td><td>Allah is Al-Muhit (The Encompassing)</td><td>Indra's Net — all things interpenetrate</td><td>The Whole (to holon)</td><td>The Tao that cannot be named</td><td>Brahman is all that exists</td></tr>
+          <tr><td>No self / Self as process</td><td>Death of the ego in God</td><td>Fana (annihilation of self in Allah)</td><td>Anatta (no-self)</td><td>Ego as illusion; preferred indifferents</td><td>The uncarved block (Pu)</td><td>Aham Brahmasmi: I am Brahman</td></tr>
+          <tr><td>Find beauty / appreciation</td><td>Worship / Gratitude</td><td>Shukr (gratitude to Allah)</td><td>Mudita (appreciative joy)</td><td>Contemplation of Nature</td><td>Naturalness (Ziran)</td><td>Bhakti (devotional love)</td></tr>
+          <tr><td>False belief = suffering</td><td>Sin as separation from Truth</td><td>Shirk (associating false things with God)</td><td>Avidya (ignorance) as root of suffering</td><td>False judgments cause passion</td><td>Acting against the Tao</td><td>Maya (illusion) causes suffering</td></tr>
+          <tr><td>No mistakes, only lessons</td><td>Grace / Redemption</td><td>Tawbah (repentance &amp; return)</td><td>Every moment is practice</td><td>The obstacle is the way</td><td>Return to the source</td><td>Every birth is a new opportunity</td></tr>
+          <tr><td>Compassion from understanding causation</td><td>Love thy neighbor / Agape</td><td>Rahma (divine mercy extended to all)</td><td>Karuna — we all suffer alike</td><td>Oikeiosis (affinity to all rational beings)</td><td>Te (virtue as natural compassion)</td><td>Ahimsa; Vasudhaiva Kutumbakam</td></tr>
+          <tr><td>Truth-tracking as optimization</td><td>The Truth shall set you free</td><td>Al-Haqq (God as The Truth)</td><td>Right View (Samma Ditthi)</td><td>Living according to Reason</td><td>Alignment with the Tao</td><td>Viveka (discernment)</td></tr>
+          <tr><td>Interconnectedness of all things</td><td>The Body of Christ; we are one</td><td>Tawhid (oneness); Ummah</td><td>Interbeing; Indra's Net</td><td>Universal brotherhood of rational beings</td><td>All things arise from the Tao</td><td>Advaita: non-duality, all is One</td></tr>
+          <tr><td>The First Commandment</td><td>"I am the Lord thy God"</td><td>Tawhid — no god but God</td><td>Buddha nature is in everything</td><td>Zeus = The Whole = Reason</td><td>The Tao precedes all gods</td><td>Ekam sat — truth is one</td></tr>
+          <tr><td>The permanent past</td><td>Eternal life / Kingdom of God</td><td>Akhirah — all deeds persist</td><td>The present moment always will have been</td><td>Stoic acceptance; Memento Mori</td><td>Return (Fu) — all return to root</td><td>The Akashic record; Karma persists</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="reveal" style="font-size:0.85em; font-style:italic; color:var(--ink-ghost); margin-top:1rem;">These mappings are resonances, not equivalences. Each tradition carries its own irreducible depth. The goal is not to flatten the differences but to illuminate the shared underlying structure: the universe, in its many dialects, keeps telling the same story.</p>
+  </section>
+
+</div><!-- /page -->
+
+<footer>
+  <div class="ornament">✦ ✦ ✦</div>
+  <p>These mappings are offered not as final answers, but as resonances.<br>The sherpa does not own the summit.</p>
+  <p class="final-line">The river flows · The river is the flowing</p>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 40);
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+  reveals.forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>

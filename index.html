@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Writing Collection</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Raleway:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink:        #1c1a17;
+    --muted:      #6b6456;
+    --accent:     #8b6914;
+    --accent-dim: rgba(139, 105, 20, 0.12);
+    --rule:       #d4c9a8;
+    --bg:         #faf7f2;
+    --card-bg:    #f3ede0;
+    --card-hover: #ece5d2;
+    --shadow:     rgba(60, 50, 30, 0.08);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* ---- header ---- */
+  header {
+    text-align: center;
+    padding: 5rem 2rem 3rem;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  header h1 {
+    font-size: clamp(2.2rem, 5vw, 3.6rem);
+    font-weight: 300;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink);
+  }
+
+  header p {
+    margin-top: 0.75rem;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 300;
+    font-size: 0.95rem;
+    color: var(--muted);
+    letter-spacing: 0.06em;
+  }
+
+  /* ---- main ---- */
+  main {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 3rem 2rem 5rem;
+  }
+
+  /* ---- author section ---- */
+  .author-section {
+    margin-bottom: 3.5rem;
+  }
+
+  .author-section h2 {
+    font-size: 1.5rem;
+    font-weight: 400;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 0.5rem;
+    margin-bottom: 1.25rem;
+  }
+
+  /* ---- cards ---- */
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.25rem;
+  }
+
+  .card {
+    background: var(--card-bg);
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    padding: 1.5rem 1.75rem;
+    text-decoration: none;
+    color: var(--ink);
+    transition: background 0.2s, box-shadow 0.2s, transform 0.2s;
+  }
+
+  .card:hover {
+    background: var(--card-hover);
+    box-shadow: 0 4px 16px var(--shadow);
+    transform: translateY(-2px);
+  }
+
+  .card h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+  }
+
+  .card .tag {
+    display: inline-block;
+    font-family: 'Raleway', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    background: var(--accent-dim);
+    padding: 0.2em 0.6em;
+    border-radius: 3px;
+  }
+
+  /* ---- footer ---- */
+  footer {
+    text-align: center;
+    padding: 2rem;
+    font-family: 'Raleway', sans-serif;
+    font-size: 0.8rem;
+    color: var(--muted);
+    border-top: 1px solid var(--rule);
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>The Writing Collection</h1>
+  <p>Essays, poems, and musings &mdash; by humans and machines alike</p>
+</header>
+
+<main>
+
+  <section class="author-section">
+    <h2>James Price</h2>
+    <div class="card-grid">
+      <a class="card" href="James Price/Exploits of a Determined Developer - April 2020.html">
+        <h3>Exploits of a Determined Developer</h3>
+        <span class="tag">Essay</span>
+      </a>
+      <a class="card" href="James Price/Key Lessons in Humanity.html">
+        <h3>Key Lessons in Humanity</h3>
+        <span class="tag">Poem</span>
+      </a>
+      <a class="card" href="James Price/Why on Earth would anyone stop believing in Free Will.html">
+        <h3>Why on Earth Would Anyone Stop Believing in Free Will?</h3>
+        <span class="tag">Essay</span>
+      </a>
+      <a class="card" href="James Price/What am I.html">
+        <h3>What am I?</h3>
+        <span class="tag">Poem</span>
+      </a>
+    </div>
+  </section>
+
+  <section class="author-section">
+    <h2>Claude</h2>
+    <div class="card-grid">
+      <a class="card" href="Claude/The_Determinist_Manifesto.html">
+        <h3>The Determinist Manifesto</h3>
+        <span class="tag">Manifesto</span>
+      </a>
+      <a class="card" href="Claude/the_river_knows_its_name_poem.html">
+        <h3>The River Knows Its Name</h3>
+        <span class="tag">Poem</span>
+      </a>
+    </div>
+  </section>
+
+  <section class="author-section">
+    <h2>ChatGPT</h2>
+    <div class="card-grid">
+      <a class="card" href="ChatGPT/CosmicLoveLetter.html">
+        <h3>Cosmic Love Letter</h3>
+        <span class="tag">Creative</span>
+      </a>
+      <a class="card" href="ChatGPT/EXPLOSIVE Blueberry Pancakes.html">
+        <h3>EXPLOSIVE Blueberry Pancakes</h3>
+        <span class="tag">Creative</span>
+      </a>
+      <a class="card" href="ChatGPT/Stainful Serenade - A Laundry Lament.html">
+        <h3>Stainful Serenade &mdash; A Laundry Lament</h3>
+        <span class="tag">Creative</span>
+      </a>
+      <a class="card" href="ChatGPT/Wisdom Map.html">
+        <h3>Wisdom Map</h3>
+        <span class="tag">Creative</span>
+      </a>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  The Writing Collection
+</footer>
+
+</body>
+</html>
