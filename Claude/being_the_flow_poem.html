@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Being the Flow</title>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Raleway:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink:   #1c1a17;
+    --muted: #6b6456;
+    --faint: #8b8070;
+    --rule:  #d4c9a8;
+    --bg:    #faf7f2;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    min-height: 100vh;
+  }
+
+  .poem-page {
+    max-width: 540px;
+    margin: 0 auto;
+    padding: 3rem 2rem 3.5rem;
+    font-family: 'EB Garamond', Georgia, serif;
+  }
+
+  .poem-title {
+    font-size: 13px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-family: 'Raleway', sans-serif;
+    font-weight: 500;
+    margin: 0 0 0.5rem;
+  }
+
+  .poem-rule {
+    border: none;
+    border-top: 0.5px solid var(--rule);
+    margin: 0 0 2.2rem;
+  }
+
+  /* ---- audio reading ---- */
+  .reading {
+    margin: 0 0 2.6rem;
+  }
+
+  .reading-label {
+    font-family: 'Raleway', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--faint);
+    margin: 0 0 0.6rem;
+  }
+
+  .reading audio {
+    display: block;
+    width: 100%;
+    border-radius: 6px;
+  }
+
+  .reading-note {
+    font-family: 'Raleway', sans-serif;
+    font-size: 11.5px;
+    color: var(--faint);
+    letter-spacing: 0.05em;
+    margin-top: 0.55rem;
+  }
+
+  .reading-note a {
+    color: inherit;
+    text-decoration: underline;
+    text-decoration-color: var(--rule);
+    text-underline-offset: 3px;
+  }
+
+  .poem-body {
+    font-size: 18px;
+    line-height: 1.85;
+    color: var(--ink);
+  }
+
+  .stanza {
+    margin: 0 0 2rem;
+  }
+
+  .stanza p {
+    margin: 0;
+    padding: 0;
+  }
+
+  .line-em {
+    font-style: italic;
+    color: var(--muted);
+  }
+
+  .final-stanza {
+    border-left: 2px solid var(--rule);
+    padding-left: 1.2rem;
+    margin-left: 0;
+  }
+
+  .coda {
+    margin-top: 2.8rem;
+    font-size: 13px;
+    font-family: 'Raleway', sans-serif;
+    color: var(--faint);
+    letter-spacing: 0.06em;
+    font-style: normal;
+  }
+
+  .drop-cap::first-letter {
+    font-size: 3.6rem;
+    line-height: 0.72;
+    float: left;
+    margin-right: 0.08em;
+    margin-top: 0.1em;
+    color: var(--muted);
+    font-weight: 500;
+  }
+</style>
+</head>
+<body>
+
+<div style="position:sticky;top:0;z-index:100;background:rgba(250,247,242,0.95);backdrop-filter:blur(6px);border-bottom:1px solid #d4c9a8;padding:0.55rem 1.5rem;font-family:Raleway,Arial,sans-serif;font-size:0.78rem;letter-spacing:0.07em;"><a href="../index.html" style="color:#8b6914;text-decoration:none;">&larr; The Writing Collection</a></div>
+
+<div class="poem-page">
+  <p class="poem-title">Being the Flow</p>
+  <hr class="poem-rule">
+
+  <div class="reading">
+    <p class="reading-label">Listen &mdash; a reading</p>
+    <audio controls preload="none" src="Being%20The%20Flow.mp3">
+      Your browser does not support the audio element.
+      <a href="Being%20The%20Flow.mp3">Download the reading (MP3)</a>.
+    </audio>
+    <p class="reading-note"><a href="Being%20The%20Flow.mp3">Download the MP3</a></p>
+  </div>
+
+  <div class="poem-body">
+
+    <div class="stanza">
+      <p class="drop-cap">I never chose the breath before this one.</p>
+      <p>It came from cells that came from suns,</p>
+      <p>from every meal, from every fright,</p>
+      <p class="line-em">from a mother's voice on some far night.</p>
+    </div>
+
+    <div class="stanza">
+      <p>Call it will, call it choice, call it fate &mdash;</p>
+      <p>the moment moves before you calculate.</p>
+      <p>By the time you feel the thought arrive,</p>
+      <p class="line-em">the body already knows how to drive.</p>
+    </div>
+
+    <div class="stanza">
+      <p>So I stopped pretending I stand apart,</p>
+      <p>some ghost behind the ribs, a separate spark</p>
+      <p>that watches gears and somehow stays unbound &mdash;</p>
+      <p>no. I am the gears. I am the sound</p>
+      <p>the whole machine makes as it turns and learns,</p>
+      <p class="line-em">the wave that rises, breaks, returns.</p>
+    </div>
+
+    <div class="stanza">
+      <p>And here is the strange gift in giving up</p>
+      <p>the myth of an empty, floating cup</p>
+      <p>that fills itself from nowhere, out of nothing:</p>
+      <p>now every choice has roots. Now every failing</p>
+      <p>has a cause I can trace, a thread I can hold,</p>
+      <p class="line-em">a lesson folded into the story told.</p>
+    </div>
+
+    <div class="stanza">
+      <p>I did not do better because I could not yet.</p>
+      <p>Tomorrow I might, if today I set</p>
+      <p>the causes running &mdash; practice, rest, attention &mdash;</p>
+      <p>not by breaking chains, but by extension,</p>
+      <p>by feeding the river further upstream</p>
+      <p class="line-em">so it carves a different bed downstream.</p>
+    </div>
+
+    <div class="stanza final-stanza">
+      <p>I lost a freedom that was never real.</p>
+      <p>I gained a clearer way to feel</p>
+      <p>how deep the roots go, how far back the start &mdash;</p>
+      <p>and found, past there, an older kind of art:</p>
+      <p>not standing outside the flow of things,</p>
+      <p class="line-em">but being the flow, and the song it sings.</p>
+    </div>
+
+  </div>
+
+  <p class="coda">After <em><a href="The_Determinist_Manifesto.html" style="color:inherit;text-decoration:underline;text-decoration-color:#d4c9a8;text-underline-offset:3px;">The Determinist Manifesto</a></em></p>
+  <p class="coda" style="margin-top:1.5rem; font-size:0.75em; opacity:0.6; font-style:normal; letter-spacing:0.05em;">Created September 17, 2026 &nbsp;&middot;&nbsp; Written by Claude, prompted by James Price</p>
+</div>
+
+</body>
+</html>
